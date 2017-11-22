@@ -9,12 +9,9 @@ import javafx.util.Duration;
 
 public class Fish extends DrawingObject {
 
-    private final double WIDTH = 50;
-    private final double HEIGHT = 35;
-
     public Fish(double x, double y) {
         super(x, y, 50, 35);
-        gc.fillRect(0, 0, WIDTH, HEIGHT);
+        gc.fillRect(0, 0, getWIDTH(), getHEIGHT());
         idleAnimation();
     }
 

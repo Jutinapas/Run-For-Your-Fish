@@ -6,13 +6,11 @@ import javafx.scene.shape.ArcType;
 public abstract class Cat extends DrawingObject {
 
     private final double SPEED = 2;
-    private final double WIDTH = 100;
-    private final double HEIGHT = 80;
     private boolean isFlip = false;
 
     public Cat(double x, double y) {
         super(x, y, 100, 80);
-        gc.fillRect(0, 0, WIDTH, HEIGHT);
+        gc.fillRect(0, 0, getWIDTH(), getHEIGHT());
     }
 
     protected abstract void draw();
@@ -74,7 +72,7 @@ public abstract class Cat extends DrawingObject {
     }
 
     public void moveRight() {
-        if (getTranslateX() + WIDTH + SPEED < 600)
+        if (getTranslateX() + getWIDTH() + SPEED < 600)
             setTranslateX(getTranslateX() + SPEED);
         if (isFlip == false) {
             filpCanvas();
@@ -96,7 +94,7 @@ public abstract class Cat extends DrawingObject {
     }
 
     public void moveDown() {
-        if (getTranslateY() + HEIGHT + SPEED < 600)
+        if (getTranslateY() + getHEIGHT() + SPEED < 600)
             setTranslateY(getTranslateY() + SPEED);
     }
 
