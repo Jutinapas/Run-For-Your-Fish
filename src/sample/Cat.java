@@ -3,7 +3,7 @@ package sample;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
-public abstract class Cat extends Drawing {
+public abstract class Cat extends DrawingObject {
 
     private final double SPEED = 2;
     private final double WIDTH = 100;

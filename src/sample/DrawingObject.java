@@ -4,11 +4,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Drawing extends Canvas {
+public class DrawingObject extends Canvas {
 
     protected GraphicsContext gc;
 
-    public Drawing(double x, double y, double width, double height) {
+    public DrawingObject(double x, double y, double width, double height) {
         gc = getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         setTranslateX(x);

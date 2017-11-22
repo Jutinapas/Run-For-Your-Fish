@@ -11,18 +11,20 @@ public class StartPageController {
     @FXML
     private Pane pane;
 
-    private GingerCat gingerCat;
     private SmokeyCat smokeyCat;
-    private SunnyCat sunnyCat;
+    private Fish fish1;
+    private Fish fish2;
+    private Fish fish3;
 
     private KeyAction keyAction;
     private AnimationTimer timer;
 
     @FXML
     public void initialize() {
-        gingerCat = new GingerCat(300, 300);
-        smokeyCat = new SmokeyCat(100,300);
-        sunnyCat = new SunnyCat(0,100);
+        smokeyCat = new SmokeyCat(500,500);
+        fish1 = new Fish(200, 100);
+        fish2 = new Fish(100, 500);
+        fish3 = new Fish(400, 300);
         display();
 
         pane.setFocusTraversable(true);
@@ -35,6 +37,7 @@ public class StartPageController {
                 keyAction.action();
             }
         };
+
         timer.start();
 
         pane.getParent().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -79,10 +82,11 @@ public class StartPageController {
     @FXML
     public void display() {
         pane.getChildren().clear();
-        gingerCat.draw();
         smokeyCat.draw();
-        sunnyCat.draw();
-        pane.getChildren().addAll(gingerCat, smokeyCat ,sunnyCat);
+        fish1.draw();
+        fish2.draw();
+        fish3.draw();
+        pane.getChildren().addAll(fish1, fish2, fish3, smokeyCat);
     }
 
 
