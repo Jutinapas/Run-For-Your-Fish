@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" prefHeight="600.0" prefWidth="600.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SelectCatController">
+   <children>
+      <Pane fx:id="pane" prefHeight="600.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="sunnyButton" layoutX="250.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleSunnyButton" prefHeight="50.0" prefWidth="100.0" text="SUNNY">
+               <font>
+                  <Font name="waan free Regular" size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="gingerButton" layoutX="75.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleGingerButton" prefHeight="50.0" prefWidth="100.0" text="GINGER">
+               <font>
+                  <Font name="waan free Regular" size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="smokeyButton" layoutX="425.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleSmokeyButton" prefHeight="50.0" prefWidth="100.0" text="SMOKEY">
+               <font>
+                  <Font name="waan free Regular" size="32.0" />
+               </font>
+            </Button>
+            <Label alignment="CENTER" layoutX="65.0" layoutY="62.0" prefHeight="126.0" prefWidth="470.0" text="Select your Cat" textFill="#00000072">
+               <font>
+                  <Font name="waan free Regular" size="96.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

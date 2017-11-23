@@ -11,7 +11,7 @@
    <children>
       <Pane fx:id="pane" prefHeight="600.0" prefWidth="600.0">
          <children>
-            <Label fx:id="scoreLabel" alignment="CENTER_RIGHT" layoutX="486.0" prefHeight="50.0" prefWidth="100.0" text="Score: 0" textFill="#02d9ab">
+            <Label fx:id="scoreLabel" alignment="CENTER_RIGHT" layoutX="486.0" prefHeight="50.0" prefWidth="100.0" text="Score: 0" textFill="#242424b2">
                <font>
                   <Font name="waan free Regular" size="43.0" />
                </font>

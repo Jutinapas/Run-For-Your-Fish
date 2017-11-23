@@ -10,8 +10,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("gamePage.fxml"));
-        primaryStage.setTitle("เหมียวจะกินปลา");
+        Parent root = FXMLLoader.load(getClass().getResource("startPage.fxml"));
+        primaryStage.setTitle("Run for your FISH!!");
         primaryStage.setScene(new Scene(root, 600, 600));
         primaryStage.show();
     }

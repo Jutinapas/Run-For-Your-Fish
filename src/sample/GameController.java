@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,7 +17,7 @@ public class GameController {
 
     private int score = 0;
 
-    private SmokeyCat smokeyCat;
+    private Cat cat;
     private Fish fish1;
     private Fish fish2;
     private Fish fish3;
@@ -27,78 +28,81 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        smokeyCat = new SmokeyCat(500,500);
-        fish1 = new Fish(200, 100);
-        fish2 = new Fish(100, 500);
-        fish3 = new Fish(400, 300);
-        dog = new Dog(0,0);
-        display();
-
-        pane.setFocusTraversable(true);
-
-        keyAction = new KeyAction(smokeyCat);
-
-        timer = new AnimationTimer() {
+        Platform.runLater(new Runnable() {
             @Override
-            public void handle(long now) {
-                if (!smokeyCat.isDead()) {
-                    keyAction.action();
-                    collisionDetection(fish1);
-                    collisionDetection(fish2);
-                    collisionDetection(fish3);
-                    collisionDetection(dog);
-                    dog.walk(smokeyCat.getTranslateX(), smokeyCat.getTranslateY());
-                }
-            }
-        };
+            public void run() {
+                fish1 = new Fish(200, 100);
+                fish2 = new Fish(100, 500);
+                fish3 = new Fish(400, 300);
+                dog = new Dog(0,0);
+                display();
 
-        timer.start();
+                pane.setFocusTraversable(true);
 
-        pane.getParent().setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch(event.getCode()) {
-                    case W:
-                        keyAction.setMoveUp(true);
-                        break;
-                    case A:
-                        keyAction.setMoveLeft(true);
-                        break;
-                    case D:
-                        keyAction.setMoveRight(true);
-                        break;
-                    case S:
-                        keyAction.setMoveDown(true);
-                        break;
-                }
+                keyAction = new KeyAction(cat);
+
+                timer = new AnimationTimer() {
+                    @Override
+                    public void handle(long now) {
+                        if (!cat.isDead()) {
+                            keyAction.action();
+                            collisionDetection(fish1);
+                            collisionDetection(fish2);
+                            collisionDetection(fish3);
+                            collisionDetection(dog);
+                            dog.walk(cat.getTranslateX(), cat.getTranslateY());
+                        }
+                    }
+                };
+
+                timer.start();
+
+                pane.getParent().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        switch(event.getCode()) {
+                            case W:
+                                keyAction.setMoveUp(true);
+                                break;
+                            case A:
+                                keyAction.setMoveLeft(true);
+                                break;
+                            case D:
+                                keyAction.setMoveRight(true);
+                                break;
+                            case S:
+                                keyAction.setMoveDown(true);
+                                break;
+                        }
+                    }
+                });
+
+                pane.getParent().setOnKeyReleased((event) -> {
+                    switch(event.getCode()) {
+                        case W:
+                            keyAction.setMoveUp(false);
+                            break;
+                        case A:
+                            keyAction.setMoveLeft(false);
+                            break;
+                        case D:
+                            keyAction.setMoveRight(false);
+                            break;
+                        case S:
+                            keyAction.setMoveDown(false);
+                            break;
+                    }
+                });
             }
         });
-
-        pane.getParent().setOnKeyReleased((event) -> {
-            switch(event.getCode()) {
-                case W:
-                    keyAction.setMoveUp(false);
-                    break;
-                case A:
-                    keyAction.setMoveLeft(false);
-                    break;
-                case D:
-                    keyAction.setMoveRight(false);
-                    break;
-                case S:
-                    keyAction.setMoveDown(false);
-                    break;
-            }
-        });
-
     }
 
     private void collisionDetection(Fish fish) {
         if (!fish.isDead()) {
-            if (smokeyCat.getX() > fish.getX() && smokeyCat.getX() < fish.getX() + fish.getWIDTH()
-                    || smokeyCat.getX() + smokeyCat.getWIDTH() > fish.getX() && smokeyCat.getX() + smokeyCat.getWIDTH() < fish.getX() + fish.getWIDTH()) {
-                if (smokeyCat.getY() > fish.getY() && smokeyCat.getY() < fish.getY() + fish.getHEIGHT()
-                        || smokeyCat.getY() + smokeyCat.getHEIGHT() > fish.getY() && smokeyCat.getY() + smokeyCat.getHEIGHT() < fish.getY() + fish.getHEIGHT()) {
+            if (cat.getX() > fish.getX() && cat.getX() < fish.getX() + fish.getWIDTH()
+                    || cat.getX() + cat.getWIDTH() > fish.getX() && cat.getX() + cat.getWIDTH() < fish.getX() + fish.getWIDTH()) {
+                if (cat.getY() > fish.getY() && cat.getY() < fish.getY() + fish.getHEIGHT()
+                        || cat.getY() + cat.getHEIGHT() > fish.getY() && cat.getY() + cat.getHEIGHT() < fish.getY() + fish.getHEIGHT()) {
                     fish.dead();
                     scoreLabel.setText("Score: " + ++score);
                 }
@@ -107,23 +111,27 @@ public class GameController {
     }
 
     private void collisionDetection(Dog dog) {
-        if (smokeyCat.getX() > dog.getX() && smokeyCat.getX() < dog.getX() + dog.getWIDTH()
-                || smokeyCat.getX() + smokeyCat.getWIDTH() > dog.getX() && smokeyCat.getX() + smokeyCat.getWIDTH() < dog.getX() + dog.getWIDTH()) {
-            if (smokeyCat.getY() > dog.getY() && smokeyCat.getY() < dog.getY() + dog.getHEIGHT()
-                    || smokeyCat.getY() + smokeyCat.getHEIGHT() > dog.getY() && smokeyCat.getY() + smokeyCat.getHEIGHT() < dog.getY() + dog.getHEIGHT()) {
-                smokeyCat.dead();
+        if (cat.getX() > dog.getX() && cat.getX() < dog.getX() + dog.getWIDTH()
+                || cat.getX() + cat.getWIDTH() > dog.getX() && cat.getX() + cat.getWIDTH() < dog.getX() + dog.getWIDTH()) {
+            if (cat.getY() > dog.getY() && cat.getY() < dog.getY() + dog.getHEIGHT()
+                    || cat.getY() + cat.getHEIGHT() > dog.getY() && cat.getY() + cat.getHEIGHT() < dog.getY() + dog.getHEIGHT()) {
+                cat.dead();
             }
         }
     }
 
+    public void setCat(Cat cat) {
+        this.cat = cat;
+    }
+
     @FXML
     private void display() {
-        smokeyCat.draw();
+        cat.draw();
         fish1.draw();
         fish2.draw();
         fish3.draw();
         dog.draw();
-        pane.getChildren().addAll(fish1, fish2, fish3, dog,smokeyCat);
+        pane.getChildren().addAll(fish1, fish2, fish3, dog, cat);
     }
 
 }

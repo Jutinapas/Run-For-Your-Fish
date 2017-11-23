@@ -12,12 +12,12 @@
    <children>
       <Pane fx:id="pane" prefHeight="600.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" layoutX="94.0" layoutY="14.0" prefHeight="200.0" prefWidth="400.0" text="เหมียวจะกินปลา" textFill="#00000075">
+            <Label alignment="CENTER" layoutX="94.0" layoutY="14.0" prefHeight="200.0" prefWidth="400.0" text="Run for your FISH!!" textFill="#00000075">
                <font>
                   <Font name="waan free Italic" size="96.0" />
                </font>
             </Label>
-            <Button fx:id="startButton" layoutX="203.0" layoutY="454.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="เริ่มเกม">
+            <Button fx:id="startButton" layoutX="203.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="100.0" prefWidth="200.0" text="START">
                <font>
                   <Font name="waan free Regular" size="50.0" />
                </font>
