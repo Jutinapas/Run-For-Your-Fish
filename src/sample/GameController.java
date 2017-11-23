@@ -20,6 +20,7 @@ public class GameController {
     private Fish fish1;
     private Fish fish2;
     private Fish fish3;
+    private Dog dog;
 
     private KeyAction keyAction;
     private AnimationTimer timer;
@@ -30,6 +31,7 @@ public class GameController {
         fish1 = new Fish(200, 100);
         fish2 = new Fish(100, 500);
         fish3 = new Fish(400, 300);
+        dog = new Dog(0,0);
         display();
 
         pane.setFocusTraversable(true);
@@ -39,10 +41,14 @@ public class GameController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                keyAction.action();
-                collisionDetection(fish1);
-                collisionDetection(fish2);
-                collisionDetection(fish3);
+                if (!smokeyCat.isDead()) {
+                    keyAction.action();
+                    collisionDetection(fish1);
+                    collisionDetection(fish2);
+                    collisionDetection(fish3);
+                    collisionDetection(dog);
+                    dog.walk(smokeyCat.getTranslateX(), smokeyCat.getTranslateY());
+                }
             }
         };
 
@@ -105,7 +111,7 @@ public class GameController {
                 || smokeyCat.getX() + smokeyCat.getWIDTH() > dog.getX() && smokeyCat.getX() + smokeyCat.getWIDTH() < dog.getX() + dog.getWIDTH()) {
             if (smokeyCat.getY() > dog.getY() && smokeyCat.getY() < dog.getY() + dog.getHEIGHT()
                     || smokeyCat.getY() + smokeyCat.getHEIGHT() > dog.getY() && smokeyCat.getY() + smokeyCat.getHEIGHT() < dog.getY() + dog.getHEIGHT()) {
-
+                smokeyCat.dead();
             }
         }
     }
@@ -116,7 +122,8 @@ public class GameController {
         fish1.draw();
         fish2.draw();
         fish3.draw();
-        pane.getChildren().addAll(fish1, fish2, fish3, smokeyCat);
+        dog.draw();
+        pane.getChildren().addAll(fish1, fish2, fish3, dog,smokeyCat);
     }
 
 }

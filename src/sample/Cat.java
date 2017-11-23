@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
@@ -10,6 +12,7 @@ public abstract class Cat extends DrawingObject {
 
     private final double SPEED = 2;
     private boolean isFlip = false;
+    private boolean isDead = false;
 
     public Cat(double x, double y) {
         super(x, y, 100, 80);
@@ -74,12 +77,36 @@ public abstract class Cat extends DrawingObject {
         gc.rotate(-15);
     }
 
+    public void dead() {
+        isDead = true;
+        deadAnimation();
+    }
+
     private void idleAnimation() {
         ScaleTransition scaleAnimation = new ScaleTransition(Duration.seconds(0.5), this);
         scaleAnimation.setToY(1.1);
         scaleAnimation.setAutoReverse(true);
         scaleAnimation.setCycleCount(Animation.INDEFINITE);
         scaleAnimation.play();
+    }
+
+    private void deadAnimation() {
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), this);
+        if (!isFlip) {
+            rotateTransition.setByAngle(90);
+        } else {
+            rotateTransition.setByAngle(-90);
+        }
+        rotateTransition.play();
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), this);
+        fadeTransition.setDelay(Duration.seconds(1));
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 
     public void moveRight() {
