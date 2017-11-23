@@ -1,7 +1,10 @@
 package sample;
 
+import javafx.animation.Animation;
+import javafx.animation.ScaleTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
+import javafx.util.Duration;
 
 public abstract class Cat extends DrawingObject {
 
@@ -10,7 +13,7 @@ public abstract class Cat extends DrawingObject {
 
     public Cat(double x, double y) {
         super(x, y, 100, 80);
-        gc.fillRect(0, 0, getWIDTH(), getHEIGHT());
+        idleAnimation();
     }
 
     protected abstract void draw();
@@ -69,6 +72,14 @@ public abstract class Cat extends DrawingObject {
         gc.strokeArc(85, 13, 12, 40, 200, 180, ArcType.OPEN);
         gc.fillArc(85, 13, 12, 40, 200, 180, ArcType.OPEN);
         gc.rotate(-15);
+    }
+
+    private void idleAnimation() {
+        ScaleTransition scaleAnimation = new ScaleTransition(Duration.seconds(0.5), this);
+        scaleAnimation.setToY(1.1);
+        scaleAnimation.setAutoReverse(true);
+        scaleAnimation.setCycleCount(Animation.INDEFINITE);
+        scaleAnimation.play();
     }
 
     public void moveRight() {

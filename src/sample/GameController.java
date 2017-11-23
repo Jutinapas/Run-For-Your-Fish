@@ -3,13 +3,18 @@ package sample;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-public class StartPageController {
+public class GameController {
 
     @FXML
     private Pane pane;
+    @FXML
+    private Label scoreLabel;
+
+    private int score = 0;
 
     private SmokeyCat smokeyCat;
     private Fish fish1;
@@ -35,9 +40,9 @@ public class StartPageController {
             @Override
             public void handle(long now) {
                 keyAction.action();
-                collisionDetection(smokeyCat, fish1);
-                collisionDetection(smokeyCat, fish2);
-                collisionDetection(smokeyCat, fish3);
+                collisionDetection(fish1);
+                collisionDetection(fish2);
+                collisionDetection(fish3);
             }
         };
 
@@ -82,20 +87,31 @@ public class StartPageController {
 
     }
 
-    private void collisionDetection(DrawingObject biggerCanvas, DrawingObject smallerCanvas) {
-        if (smallerCanvas.getX() > biggerCanvas.getX() && smallerCanvas.getX() < biggerCanvas.getX() + biggerCanvas.getWIDTH() || smallerCanvas.getX() + smallerCanvas.getWIDTH() > biggerCanvas.getX() && smallerCanvas.getX() + smallerCanvas.getWIDTH() < biggerCanvas.getX() + biggerCanvas.getWIDTH()) {
-            if (smallerCanvas.getY() > biggerCanvas.getY() && smallerCanvas.getY() < biggerCanvas.getY() + biggerCanvas.getHEIGHT()) {
-                System.out.println("FISH!");
+    private void collisionDetection(Fish fish) {
+        if (!fish.isDead()) {
+            if (smokeyCat.getX() > fish.getX() && smokeyCat.getX() < fish.getX() + fish.getWIDTH()
+                    || smokeyCat.getX() + smokeyCat.getWIDTH() > fish.getX() && smokeyCat.getX() + smokeyCat.getWIDTH() < fish.getX() + fish.getWIDTH()) {
+                if (smokeyCat.getY() > fish.getY() && smokeyCat.getY() < fish.getY() + fish.getHEIGHT()
+                        || smokeyCat.getY() + smokeyCat.getHEIGHT() > fish.getY() && smokeyCat.getY() + smokeyCat.getHEIGHT() < fish.getY() + fish.getHEIGHT()) {
+                    fish.dead();
+                    scoreLabel.setText("Score: " + ++score);
+                }
             }
-            else if (smallerCanvas.getY() + smallerCanvas.getHEIGHT() > biggerCanvas.getY() && smallerCanvas.getY() + smallerCanvas.getHEIGHT() < biggerCanvas.getY() + biggerCanvas.getHEIGHT()) {
-                System.out.println("FISH!");
+        }
+    }
+
+    private void collisionDetection(Dog dog) {
+        if (smokeyCat.getX() > dog.getX() && smokeyCat.getX() < dog.getX() + dog.getWIDTH()
+                || smokeyCat.getX() + smokeyCat.getWIDTH() > dog.getX() && smokeyCat.getX() + smokeyCat.getWIDTH() < dog.getX() + dog.getWIDTH()) {
+            if (smokeyCat.getY() > dog.getY() && smokeyCat.getY() < dog.getY() + dog.getHEIGHT()
+                    || smokeyCat.getY() + smokeyCat.getHEIGHT() > dog.getY() && smokeyCat.getY() + smokeyCat.getHEIGHT() < dog.getY() + dog.getHEIGHT()) {
+
             }
         }
     }
 
     @FXML
     private void display() {
-        pane.getChildren().clear();
         smokeyCat.draw();
         fish1.draw();
         fish2.draw();
