@@ -5,13 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
-public class SelectCatController {
+public class SelectController {
 
 
     @FXML
@@ -22,16 +23,20 @@ public class SelectCatController {
     private Button sunnyButton;
     @FXML
     private Button smokeyButton;
+    @FXML
+    private Label label;
 
     private GingerCat ginger;
     private SunnyCat sunny;
     private SmokeyCat smokey;
+    private Background bg;
 
     @FXML
     public void initialize() {
         ginger = new GingerCat(70, 300);
         sunny = new SunnyCat(250, 300);
         smokey = new SmokeyCat(420, 300);
+        bg = new Background();
         display();
     }
 
@@ -76,10 +81,12 @@ public class SelectCatController {
 
     @FXML
     private void display() {
+        pane.getChildren().clear();
         ginger.draw();
         sunny.draw();
         smokey.draw();
-        pane.getChildren().addAll(ginger, sunny, smokey);
+        bg.draw();
+        pane.getChildren().addAll(bg, ginger, sunny, smokey, label, gingerButton, sunnyButton, smokeyButton);
     }
 
 }

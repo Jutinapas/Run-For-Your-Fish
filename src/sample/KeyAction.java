@@ -16,10 +16,6 @@ public class KeyAction {
         if (isMoveRight) cat.moveRight();
     }
 
-    public void setCat(Cat cat) {
-        this.cat = cat;
-    }
-
     public void setMoveUp(boolean moveUp) {
         isMoveUp = moveUp;
     }

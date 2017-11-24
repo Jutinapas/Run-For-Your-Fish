@@ -11,9 +11,19 @@
    <children>
       <Pane fx:id="pane" prefHeight="600.0" prefWidth="600.0">
          <children>
-            <Label fx:id="scoreLabel" alignment="CENTER_RIGHT" layoutX="486.0" prefHeight="50.0" prefWidth="100.0" text="Score: 0" textFill="#242424b2">
+            <Label fx:id="scoreLabel" alignment="CENTER_RIGHT" layoutX="486.0" prefHeight="50.0" prefWidth="100.0" text="Score: 0">
                <font>
                   <Font name="waan free Regular" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="gameOverLabel" alignment="CENTER" layoutY="231.0" opacity="0.0" prefHeight="132.0" prefWidth="600.0" styleClass="gameover-label" stylesheets="@gamePage.css" text="GAME OVER.." textFill="RED">
+               <font>
+                  <Font name="waan free Regular" size="200.0" />
+               </font>
+            </Label>
+            <Label fx:id="winningLabel" alignment="CENTER" layoutY="231.0" opacity="0.0" prefHeight="138.0" prefWidth="600.0" styleClass="win-label" stylesheets="@gamePage.css" text="WELL DONE!!" textFill="#00e476">
+               <font>
+                  <Font name="waan free Regular" size="200.0" />
                </font>
             </Label>
          </children>

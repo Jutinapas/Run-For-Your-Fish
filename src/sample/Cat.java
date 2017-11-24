@@ -12,7 +12,6 @@ public abstract class Cat extends DrawingObject {
 
     private final double SPEED = 2;
     private boolean isFlip = false;
-    private boolean isDead = false;
 
     public Cat(double x, double y) {
         super(x, y, 100, 80);
@@ -78,9 +77,10 @@ public abstract class Cat extends DrawingObject {
     }
 
     public void dead() {
-        isDead = true;
         deadAnimation();
     }
+
+    public void grow() { growAnimation(); }
 
     private void idleAnimation() {
         ScaleTransition scaleAnimation = new ScaleTransition(Duration.seconds(0.5), this);
@@ -105,8 +105,18 @@ public abstract class Cat extends DrawingObject {
         fadeTransition.play();
     }
 
-    public boolean isDead() {
-        return isDead;
+    private void growAnimation() {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), this);
+        scaleTransition.setFromX(1);
+        scaleTransition.setToX(2);
+        scaleTransition.setFromY(1);
+        scaleTransition.setToY(2);
+        scaleTransition.play();
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), this);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setDelay(Duration.seconds(1));
+        fadeTransition.play();
     }
 
     public void moveRight() {

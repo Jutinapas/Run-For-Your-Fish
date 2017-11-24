@@ -1,0 +1,22 @@
+.button {
+    -fx-background-color: lightgrey;
+
+}
+.button:hover {
+    -fx-background-color: gainsboro;
+}
+
+.win-label {
+    -fx-font-family: "waan free";
+    -fx-text-fill: limegreen;
+    -fx-background-color: wheat;
+    -fx-font-size: 84pt;
+}
+
+.gameover-label {
+    -fx-font-family: "waan free";
+    -fx-text-fill: tomato;
+    -fx-background-color: wheat;
+    -fx-font-size: 84pt;
+}
+

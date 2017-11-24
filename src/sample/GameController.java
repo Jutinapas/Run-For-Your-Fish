@@ -1,12 +1,15 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class GameController {
 
@@ -14,6 +17,10 @@ public class GameController {
     private Pane pane;
     @FXML
     private Label scoreLabel;
+    @FXML
+    private Label winningLabel;
+    @FXML
+    private Label gameOverLabel;
 
     private int score = 0;
 
@@ -22,6 +29,9 @@ public class GameController {
     private Fish fish2;
     private Fish fish3;
     private Dog dog;
+    private Background bg;
+
+    private boolean gameEnd = false;
 
     private KeyAction keyAction;
     private AnimationTimer timer;
@@ -35,6 +45,7 @@ public class GameController {
                 fish2 = new Fish(100, 500);
                 fish3 = new Fish(400, 300);
                 dog = new Dog(0,0);
+                bg = new Background();
                 display();
 
                 pane.setFocusTraversable(true);
@@ -44,7 +55,7 @@ public class GameController {
                 timer = new AnimationTimer() {
                     @Override
                     public void handle(long now) {
-                        if (!cat.isDead()) {
+                        if (!gameEnd) {
                             keyAction.action();
                             collisionDetection(fish1);
                             collisionDetection(fish2);
@@ -105,6 +116,11 @@ public class GameController {
                         || cat.getY() + cat.getHEIGHT() > fish.getY() && cat.getY() + cat.getHEIGHT() < fish.getY() + fish.getHEIGHT()) {
                     fish.dead();
                     scoreLabel.setText("Score: " + ++score);
+                    if (score == 3) {
+                        gameEnd = true;
+                        cat.grow();
+                        labelPopUp(winningLabel);
+                    }
                 }
             }
         }
@@ -116,8 +132,25 @@ public class GameController {
             if (cat.getY() > dog.getY() && cat.getY() < dog.getY() + dog.getHEIGHT()
                     || cat.getY() + cat.getHEIGHT() > dog.getY() && cat.getY() + cat.getHEIGHT() < dog.getY() + dog.getHEIGHT()) {
                 cat.dead();
+                gameEnd = true;
+                labelPopUp(gameOverLabel);
             }
         }
+    }
+
+    private void labelPopUp(Label label) {
+        pane.getChildren().clear();
+        pane.getChildren().addAll(bg, label, scoreLabel, cat);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), label);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), label);
+        scaleTransition.setFromX(0);
+        scaleTransition.setToX(1);
+        scaleTransition.setFromY(0);
+        scaleTransition.setToY(1);
+        fadeTransition.play();
+        scaleTransition.play();
     }
 
     public void setCat(Cat cat) {
@@ -126,12 +159,14 @@ public class GameController {
 
     @FXML
     private void display() {
+        pane.getChildren().clear();
         cat.draw();
         fish1.draw();
         fish2.draw();
         fish3.draw();
         dog.draw();
-        pane.getChildren().addAll(fish1, fish2, fish3, dog, cat);
+        bg.draw();
+        pane.getChildren().addAll(bg, fish1, fish2, fish3, dog, cat, scoreLabel);
     }
 
 }

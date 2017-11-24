@@ -23,7 +23,7 @@ public class Dog extends DrawingObject {
     }
 
     private void drawBody() {
-        gc.setFill(Color.NAVAJOWHITE);
+        gc.setFill(Color.CHOCOLATE);
         gc.strokeOval(95, 15, 20, 20);
         gc.fillOval(95, 15, 20, 20);
         gc.strokeArc(70, 7, 20, 70, 180, 180, ArcType.OPEN );
@@ -42,7 +42,7 @@ public class Dog extends DrawingObject {
     }
 
     private void drawHead() {
-        gc.setFill(Color.NAVAJOWHITE);
+        gc.setFill(Color.CHOCOLATE);
         gc.rotate(-10);
         gc.strokeOval(40, 20, 15, 30);
         gc.fillOval(40, 20, 15, 30);

@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class DrawingObject extends Canvas {
+public abstract class DrawingObject extends Canvas {
 
     private final double WIDTH;
     private final double HEIGHT;
@@ -21,6 +21,8 @@ public class DrawingObject extends Canvas {
         setWidth(width);
         setHeight(height);
     }
+
+    protected abstract void draw();
 
     protected void filpCanvas() {
         setScaleX(-getScaleX());
