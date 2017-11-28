@@ -1,4 +1,4 @@
-package sample;
+package model;
 
 import javafx.scene.paint.Color;
 
@@ -9,7 +9,7 @@ public class SunnyCat extends Cat {
     }
 
     @Override
-    protected void draw() {
+    public void draw() {
         drawTail(Color.WHITE);
         drawBody(Color.WHITE);
         drawHead(Color.GRAY, Color.GOLD, Color.WHITE);
@@ -18,7 +18,7 @@ public class SunnyCat extends Cat {
     }
 
     @Override
-    public void drawBody(Color c1){
+    protected void drawBody(Color c1){
         super.drawBody(c1);
         gc.setFill(Color.GOLD);
         gc.fillOval(40,20, 40, 20);
@@ -27,7 +27,7 @@ public class SunnyCat extends Cat {
     }
 
     @Override
-    public void drawHead(Color c1, Color c2, Color c3) {
+    protected void drawHead(Color c1, Color c2, Color c3) {
         super.drawHead(c1, c2, c3);
         gc.setFill(Color.GOLD);
         gc.fillOval(35,10, 20, 25);

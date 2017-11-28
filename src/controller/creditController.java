@@ -1,19 +1,16 @@
-package sample;
+package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class creditController {
 
-    @FXML
-    private Pane pane;
     @FXML
     private Button backButton;
     @FXML
@@ -25,7 +22,7 @@ public class creditController {
 
     public void handleBackButton() {
         Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/startPage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();

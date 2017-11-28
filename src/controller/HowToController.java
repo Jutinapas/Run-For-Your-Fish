@@ -1,5 +1,7 @@
-package sample;
+package controller;
 
+import model.KeyAction;
+import model.SmokeyCat;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -97,7 +99,7 @@ public class HowToController {
 
     public void handleBackButton() {
         Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/startPage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();

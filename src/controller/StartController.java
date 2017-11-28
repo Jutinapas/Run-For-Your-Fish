@@ -1,5 +1,6 @@
-package sample;
+package controller;
 
+import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +42,7 @@ public class StartController {
 
     public void handleStartButton(ActionEvent e) {
         Stage stage = (Stage) startButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("selectPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/selectPage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();
@@ -52,7 +53,7 @@ public class StartController {
 
     public void handleHowToButton(ActionEvent e) {
         Stage stage = (Stage) howToButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("howToPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/howToPage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();
@@ -63,7 +64,7 @@ public class StartController {
 
     public void handleCreditButton(ActionEvent e) {
         Stage stage = (Stage) creditButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("creditPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/creditPage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();

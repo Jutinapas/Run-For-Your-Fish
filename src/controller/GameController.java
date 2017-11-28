@@ -1,5 +1,7 @@
-package sample;
+package controller;
 
+import javafx.scene.Node;
+import model.*;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -11,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -151,12 +152,16 @@ public class GameController {
     private void labelPopUp(Label label) {
         pane.getChildren().clear();
         restartButton.setDisable(false);
-        restartButton.setOpacity(1);
         pane.getChildren().addAll(bg, label, scoreLabel, cat, restartButton);
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), label);
+        popUpAnimation(label);
+        popUpAnimation(restartButton);
+    }
+
+    private void popUpAnimation(Node node) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), node);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1);
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), label);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), node);
         scaleTransition.setFromX(0);
         scaleTransition.setToX(1);
         scaleTransition.setFromY(0);
@@ -167,7 +172,7 @@ public class GameController {
 
     public void handleRestartButton() {
         Stage stage = (Stage) restartButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("selectPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/selectPage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();

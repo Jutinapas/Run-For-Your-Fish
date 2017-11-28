@@ -1,5 +1,9 @@
-package sample;
+package controller;
 
+import model.Background;
+import model.GingerCat;
+import model.SmokeyCat;
+import model.SunnyCat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +48,7 @@ public class SelectController {
 
     public void handleGingerButton(ActionEvent e) {
         Stage stage = (Stage) pane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gamePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/gamePage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             GameController controller = loader.getController();
@@ -57,7 +61,7 @@ public class SelectController {
 
     public void handleSunnyButton(ActionEvent e) {
         Stage stage = (Stage) pane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gamePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/gamePage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             GameController controller = loader.getController();
@@ -70,7 +74,7 @@ public class SelectController {
 
     public void handleSmokeyButton(ActionEvent e) {
         Stage stage = (Stage) pane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gamePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/gamePage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             GameController controller = loader.getController();
@@ -83,7 +87,7 @@ public class SelectController {
 
     public void handleBackButton() {
         Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/startPage.fxml"));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();

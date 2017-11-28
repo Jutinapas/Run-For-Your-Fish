@@ -1,4 +1,4 @@
-package sample;
+package model;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -18,7 +18,7 @@ public abstract class Cat extends DrawingObject {
         idleAnimation();
     }
 
-    protected abstract void draw();
+    public abstract void draw();
 
     protected void drawTail(Color c1) {
         gc.setFill(c1);
