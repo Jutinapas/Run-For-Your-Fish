@@ -12,17 +12,17 @@
    <children>
       <Pane fx:id="pane" prefHeight="600.0" prefWidth="600.0">
          <children>
-            <Button fx:id="sunnyButton" layoutX="250.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleSunnyButton" prefHeight="50.0" prefWidth="100.0" styleClass="howto-button" stylesheets="@selectPage.css" text="SUNNY">
+            <Button fx:id="sunnyButton" layoutX="238.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleSunnyButton" prefHeight="50.0" prefWidth="125.0" styleClass="howto-button" stylesheets="@selectPage.css" text="SUNNY">
                <font>
                   <Font name="waan free Regular" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="gingerButton" layoutX="75.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleGingerButton" prefHeight="50.0" prefWidth="100.0" styleClass="howto-button" stylesheets="@selectPage.css" text="GINGER">
+            <Button fx:id="gingerButton" layoutX="60.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleGingerButton" prefHeight="50.0" prefWidth="125.0" styleClass="howto-button" stylesheets="@selectPage.css" text="GINGER">
                <font>
                   <Font name="waan free Regular" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="smokeyButton" layoutX="425.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleSmokeyButton" prefHeight="50.0" prefWidth="100.0" styleClass="howto-button" stylesheets="@selectPage.css" text="SMOKEY">
+            <Button fx:id="smokeyButton" layoutX="413.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleSmokeyButton" prefHeight="50.0" prefWidth="125.0" styleClass="howto-button" stylesheets="@selectPage.css" text="SMOKEY">
                <font>
                   <Font name="waan free Regular" size="32.0" />
                </font>
@@ -32,6 +32,11 @@
                   <Font name="waan free Regular" size="96.0" />
                </font>
             </Label>
+            <Button fx:id="backButton" layoutX="511.0" layoutY="536.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="50.0" prefWidth="75.0" styleClass="back-button" stylesheets="@selectPage.css" text="Back">
+               <font>
+                  <Font name="waan free Regular" size="31.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>

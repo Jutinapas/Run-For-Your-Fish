@@ -22,12 +22,12 @@
                   <Font name="waan free Regular" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="creditButton" layoutX="424.0" layoutY="477.0" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="55.0" prefWidth="128.0" styleClass="credit-button" text="Credits">
+            <Button fx:id="creditButton" layoutX="411.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleCreditButton" prefHeight="75.0" prefWidth="128.0" styleClass="credit-button" text="Credit">
                <font>
                   <Font name="waan free Regular" size="28.0" />
                </font>
             </Button>
-            <Button fx:id="howToButton" layoutX="51.0" layoutY="477.0" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="55.0" prefWidth="128.0" styleClass="howto-button" text="How to Play">
+            <Button fx:id="howToButton" layoutX="66.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleHowToButton" prefHeight="75.0" prefWidth="128.0" styleClass="howto-button" text="How to Play">
                <font>
                   <Font name="waan free Regular" size="31.0" />
                </font>

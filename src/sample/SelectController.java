@@ -24,6 +24,8 @@ public class SelectController {
     @FXML
     private Button smokeyButton;
     @FXML
+    private Button backButton;
+    @FXML
     private Label label;
 
     private GingerCat ginger;
@@ -79,6 +81,17 @@ public class SelectController {
         }
     }
 
+    public void handleBackButton() {
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("startPage.fxml"));
+        try {
+            stage.setScene(new Scene(loader.load(), 600, 600));
+            stage.show();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
     @FXML
     private void display() {
         pane.getChildren().clear();
@@ -86,7 +99,7 @@ public class SelectController {
         sunny.draw();
         smokey.draw();
         bg.draw();
-        pane.getChildren().addAll(bg, ginger, sunny, smokey, label, gingerButton, sunnyButton, smokeyButton);
+        pane.getChildren().addAll(bg, ginger, sunny, smokey, label, gingerButton, sunnyButton, smokeyButton, backButton);
     }
 
 }

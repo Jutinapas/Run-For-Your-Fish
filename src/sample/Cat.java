@@ -146,4 +146,7 @@ public abstract class Cat extends DrawingObject {
             setTranslateY(getTranslateY() + SPEED);
     }
 
+    public double getSPEED() {
+        return SPEED;
+    }
 }

@@ -13,6 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("startPage.fxml"));
         primaryStage.setTitle("Run for your FISH!!");
         primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

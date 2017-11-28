@@ -1,19 +1,33 @@
-.howto-button {
+.button {
     -fx-font-family: "roboto";
-    -fx-font-size: 12pt;
-    -fx-background-color: lightgrey;
+    -fx-font-size: 14pt;
+    -fx-background-color: lightyellow;
 
 }
-.howto-button:hover {
+.button:hover {
     -fx-font-family: "roboto";
-    -fx-font-size: 13pt;
-    -fx-background-color: gainsboro;
+    -fx-font-size: 16pt;
+    -fx-text-fill: white;
+    -fx-background-color: orange;
 }
 
 .label {
     -fx-font-family: "waan free";
     -fx-text-fill: black;
-    -fx-background-color: wheat;
+    -fx-background-color: lightyellow;
     -fx-font-size: 84pt;
+}
+
+.back-button {
+    -fx-font-family: "roboto";
+    -fx-font-size: 13pt;
+    -fx-background-color: lightyellow;
+}
+
+.back-button:hover {
+    -fx-font-family: "roboto";
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+    -fx-background-color: orange;
 }
 

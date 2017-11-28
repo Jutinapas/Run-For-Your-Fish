@@ -6,10 +6,17 @@ import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 public class GameController {
 
@@ -21,6 +28,8 @@ public class GameController {
     private Label winningLabel;
     @FXML
     private Label gameOverLabel;
+    @FXML
+    private Button restartButton;
 
     private int score = 0;
 
@@ -104,16 +113,17 @@ public class GameController {
                             break;
                     }
                 });
+
             }
         });
     }
 
     private void collisionDetection(Fish fish) {
         if (!fish.isDead()) {
-            if (cat.getX() > fish.getX() && cat.getX() < fish.getX() + fish.getWIDTH()
-                    || cat.getX() + cat.getWIDTH() > fish.getX() && cat.getX() + cat.getWIDTH() < fish.getX() + fish.getWIDTH()) {
-                if (cat.getY() > fish.getY() && cat.getY() < fish.getY() + fish.getHEIGHT()
-                        || cat.getY() + cat.getHEIGHT() > fish.getY() && cat.getY() + cat.getHEIGHT() < fish.getY() + fish.getHEIGHT()) {
+            if (cat.getX() >= fish.getX() && cat.getX() <= fish.getX() + fish.getWIDTH()
+                    || cat.getX() + cat.getWIDTH() >= fish.getX() && cat.getX() + cat.getWIDTH() <= fish.getX() + fish.getWIDTH()) {
+                if (cat.getY() >= fish.getY() && cat.getY() <= fish.getY() + fish.getHEIGHT()
+                        || cat.getY() + cat.getHEIGHT() >= fish.getY() && cat.getY() + cat.getHEIGHT() <= fish.getY() + fish.getHEIGHT()) {
                     fish.dead();
                     scoreLabel.setText("Score: " + ++score);
                     if (score == 3) {
@@ -127,10 +137,10 @@ public class GameController {
     }
 
     private void collisionDetection(Dog dog) {
-        if (cat.getX() > dog.getX() && cat.getX() < dog.getX() + dog.getWIDTH()
-                || cat.getX() + cat.getWIDTH() > dog.getX() && cat.getX() + cat.getWIDTH() < dog.getX() + dog.getWIDTH()) {
-            if (cat.getY() > dog.getY() && cat.getY() < dog.getY() + dog.getHEIGHT()
-                    || cat.getY() + cat.getHEIGHT() > dog.getY() && cat.getY() + cat.getHEIGHT() < dog.getY() + dog.getHEIGHT()) {
+        if (cat.getX() >= dog.getX() && cat.getX() <= dog.getX() + dog.getWIDTH()
+                || cat.getX() + cat.getWIDTH() >= dog.getX() && cat.getX() + cat.getWIDTH() <= dog.getX() + dog.getWIDTH()) {
+            if (cat.getY() >= dog.getY() && cat.getY() <= dog.getY() + dog.getHEIGHT()
+                    || cat.getY() + cat.getHEIGHT() >= dog.getY() && cat.getY() + cat.getHEIGHT() <= dog.getY() + dog.getHEIGHT()) {
                 cat.dead();
                 gameEnd = true;
                 labelPopUp(gameOverLabel);
@@ -140,7 +150,9 @@ public class GameController {
 
     private void labelPopUp(Label label) {
         pane.getChildren().clear();
-        pane.getChildren().addAll(bg, label, scoreLabel, cat);
+        restartButton.setDisable(false);
+        restartButton.setOpacity(1);
+        pane.getChildren().addAll(bg, label, scoreLabel, cat, restartButton);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), label);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1);
@@ -151,6 +163,17 @@ public class GameController {
         scaleTransition.setToY(1);
         fadeTransition.play();
         scaleTransition.play();
+    }
+
+    public void handleRestartButton() {
+        Stage stage = (Stage) restartButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("selectPage.fxml"));
+        try {
+            stage.setScene(new Scene(loader.load(), 600, 600));
+            stage.show();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
     public void setCat(Cat cat) {

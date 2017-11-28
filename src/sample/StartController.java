@@ -32,9 +32,9 @@ public class StartController {
 
     @FXML
     public void initialize() {
-        cat = new SunnyCat(400, 300);
+        cat = new SunnyCat(385, 300);
         fish = new Fish(285, 350);
-        dog = new Dog(80, 300);
+        dog = new Dog(100, 300);
         bg = new Background();
         display();
     }
@@ -48,7 +48,28 @@ public class StartController {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+    }
 
+    public void handleHowToButton(ActionEvent e) {
+        Stage stage = (Stage) howToButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("howToPage.fxml"));
+        try {
+            stage.setScene(new Scene(loader.load(), 600, 600));
+            stage.show();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public void handleCreditButton(ActionEvent e) {
+        Stage stage = (Stage) creditButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("creditPage.fxml"));
+        try {
+            stage.setScene(new Scene(loader.load(), 600, 600));
+            stage.show();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
     @FXML

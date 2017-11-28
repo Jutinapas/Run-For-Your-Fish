@@ -1,0 +1,38 @@
+.back-button {
+    -fx-font-family: "roboto";
+    -fx-font-size: 13pt;
+    -fx-background-color: lightyellow;
+
+}
+
+.back-button:hover {
+    -fx-font-family: "roboto";
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+    -fx-background-color: orange;
+}
+
+.name-label {
+    -fx-font-family: "waan free";
+    -fx-text-fill: black;
+    -fx-background-color: wheat;
+    -fx-font-size: 84pt;
+}
+
+.wsad-label {
+    -fx-font-family: "waan free";
+    -fx-text-fill: black;
+    -fx-background-color: wheat;
+    -fx-font-size: 28pt;
+}
+
+.howto-label {
+    -fx-font-family: "waan free";
+    -fx-text-fill: black;
+    -fx-background-color: wheat;
+    -fx-font-size: 36pt;
+}
+
+.pane {
+    -fx-background-color: wheat;
+}

@@ -1,22 +1,27 @@
 .button {
-    -fx-background-color: lightgrey;
+    -fx-font-family: "roboto";
+    -fx-font-size: 28pt;
+    -fx-background-color: lightyellow;
 
 }
 .button:hover {
-    -fx-background-color: gainsboro;
+    -fx-font-family: "roboto";
+    -fx-font-size: 28pt;
+    -fx-text-fill: white;
+    -fx-background-color: orange;
 }
 
 .win-label {
     -fx-font-family: "waan free";
     -fx-text-fill: limegreen;
-    -fx-background-color: wheat;
+    -fx-background-color: lightyellow;
     -fx-font-size: 84pt;
 }
 
 .gameover-label {
     -fx-font-family: "waan free";
     -fx-text-fill: tomato;
-    -fx-background-color: wheat;
+    -fx-background-color: lightyellow;
     -fx-font-size: 84pt;
 }
 
