@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class StartController {
@@ -30,41 +31,36 @@ public class StartController {
     private Fish fish;
     private Dog dog;
     private Background bg;
+    private ArrayList<DrawingObject> drawingList = new ArrayList<>();
 
     @FXML
     public void initialize() {
-        cat = new SunnyCat(385, 300);
-        fish = new Fish(285, 350);
+        cat = new Cat(CatType.Sunny,385, 300);
+        drawingList.add(cat);
+        fish = new Fish(285, 350, false);
+        drawingList.add(fish);
         dog = new Dog(100, 300);
+        drawingList.add(dog);
         bg = new Background();
+        drawingList.add(bg);
         display();
     }
 
     public void handleStartButton(ActionEvent e) {
-        Stage stage = (Stage) startButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/selectPage.fxml"));
-        try {
-            stage.setScene(new Scene(loader.load(), 600, 600));
-            stage.show();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+        changeScene("/view/selectPage.fxml");
     }
 
     public void handleHowToButton(ActionEvent e) {
-        Stage stage = (Stage) howToButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/howToPage.fxml"));
-        try {
-            stage.setScene(new Scene(loader.load(), 600, 600));
-            stage.show();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+        changeScene("/view/howToPage.fxml");
     }
 
     public void handleCreditButton(ActionEvent e) {
+        changeScene("/view/creditPage.fxml");
+    }
+
+    private void changeScene(String scene) {
         Stage stage = (Stage) creditButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/creditPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(scene));
         try {
             stage.setScene(new Scene(loader.load(), 600, 600));
             stage.show();
@@ -76,10 +72,9 @@ public class StartController {
     @FXML
     private void display() {
         pane.getChildren().clear();
-        cat.draw();
-        fish.draw();
-        dog.draw();
-        bg.draw();
+        for (DrawingObject object: drawingList) {
+            object.draw();
+        }
         pane.getChildren().addAll(bg, cat, fish, dog, nameLabel, startButton, howToButton, creditButton);
     }
 

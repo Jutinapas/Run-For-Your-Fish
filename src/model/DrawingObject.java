@@ -22,7 +22,18 @@ public abstract class DrawingObject extends Canvas {
         setHeight(height);
     }
 
-    protected abstract void draw();
+    public abstract void draw();
+
+    public boolean collisionDetection(DrawingObject object) {
+        if (getX() >= object.getX() && getX() <= object.getX() + object.getWIDTH()
+                || getX() + getWIDTH() >= object.getX() && getX() + getWIDTH() <= object.getX() + object.getWIDTH()) {
+            if (getY() >= object.getY() && getY() <= object.getY() + object.getHEIGHT()
+                    || getY() + getHEIGHT() >= object.getY() && getY() + getHEIGHT() <= object.getY() + object.getHEIGHT()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     protected void filpCanvas() {
         setScaleX(-getScaleX());

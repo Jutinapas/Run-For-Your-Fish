@@ -1,0 +1,46 @@
+- เพิ่ม enum CatType และ Difficulty
+- เพิ่ม interface OnConllisionListener
+- ลบ class GingerCat, SunnyCat และ SmokeyCat
+
+-Model-
+
+DrawingObject.java
+	- เพิ่ม method collisonDetection
+
+Cat.java
+	- เปลี่ยน จาก abstract class เป็น class ธรรมดา และ implements OnConllisonListener
+	- เพิ่ม field type และ isDead
+	- constructor รับ type เพิ่มเข้ามา
+	- implement method draw ให้วาดตามรูปแบบของ type
+	- เพิ่ม method drawGingerCat, drawSunnyCat และ drawSmokeyCat
+	- override method onCollisionEnter
+
+Dog.java
+	- เพิ่ม constructor ที่รับ speed เพิ่มเข้ามา
+	
+Fish.java
+	- implements OnConllisionListener
+	- constructor รับ isFlip เพิ่มเข้ามา
+	- override method onCollisionEnter
+
+-controller-
+
+StartController.java
+	- เพิ่ม ArrayList drawingList
+	- เพิ่ม method changeScene
+	- implement method display ใหม่
+
+SelectController.java
+	- เพิ่ม ArrayList drawingList
+	- เพิ่ม ComboBox
+	- เพิ่ม method loadGameScene
+	- implement method display ใหม่
+
+GameController.java
+	- เพิ่ม ArrayList drawingList และ pos 
+	- เพิ่ม Difficulty
+	- เพิ่ม method getRandomPos, onCollisonDetect, checkEndGame และ setDifficulty
+	- implement method run, AnimationTimer และ display ใหม่
+
+
+ 

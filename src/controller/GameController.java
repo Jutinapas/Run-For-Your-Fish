@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GameController {
 
@@ -33,29 +35,47 @@ public class GameController {
     private Button restartButton;
 
     private int score = 0;
+    private Difficulty difficulty;
 
     private Cat cat;
     private Fish fish1;
     private Fish fish2;
     private Fish fish3;
+    private Fish fish4;
+    private Fish fish5;
     private Dog dog;
     private Background bg;
+    private ArrayList<DrawingObject> drawingList = new ArrayList<>();
+    private ArrayList<Integer> pos = new ArrayList<>();
 
     private boolean gameEnd = false;
 
     private KeyAction keyAction;
     private AnimationTimer timer;
+    private Random random = new Random();
 
     @FXML
     public void initialize() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                fish1 = new Fish(200, 100);
-                fish2 = new Fish(100, 500);
-                fish3 = new Fish(400, 300);
-                dog = new Dog(0,0);
+                drawingList.add(cat);
+                if (difficulty == Difficulty.Easy) dog = new Dog(0, 0);
+                else if (difficulty == Difficulty.Normal) dog = new Dog(0.75, 0, 0);
+                else if (difficulty == Difficulty.Hard) dog = new Dog(1, 0, 0);
+                drawingList.add(dog);
+                fish1 = new Fish(getRandomPos(), getRandomPos(), random.nextBoolean());
+                drawingList.add(fish1);
+                fish2 = new Fish(getRandomPos(), getRandomPos(), random.nextBoolean());
+                drawingList.add(fish2);
+                fish3 = new Fish(getRandomPos(), getRandomPos(), random.nextBoolean());
+                drawingList.add(fish3);
+                fish4 = new Fish(getRandomPos(), getRandomPos(), random.nextBoolean());
+                drawingList.add(fish4);
+                fish5 = new Fish(getRandomPos(), getRandomPos(), random.nextBoolean());
+                drawingList.add(fish5);
                 bg = new Background();
+                drawingList.add(bg);
                 display();
 
                 pane.setFocusTraversable(true);
@@ -67,10 +87,15 @@ public class GameController {
                     public void handle(long now) {
                         if (!gameEnd) {
                             keyAction.action();
-                            collisionDetection(fish1);
-                            collisionDetection(fish2);
-                            collisionDetection(fish3);
-                            collisionDetection(dog);
+                            if ((!fish1.isDead() && onCollisionDetect(cat, fish1)) ||
+                                    (!fish2.isDead() && onCollisionDetect(cat, fish2)) ||
+                                    (!fish3.isDead() && onCollisionDetect(cat, fish3)) ||
+                                    (!fish4.isDead() && onCollisionDetect(cat, fish4)) ||
+                                    (!fish5.isDead() && onCollisionDetect(cat, fish5))) {
+                                    scoreLabel.setText("Score: " + ++score);
+                            }
+                            onCollisionDetect(dog, cat);
+                            checkEndGame();
                             dog.walk(cat.getTranslateX(), cat.getTranslateY());
                         }
                     }
@@ -119,33 +144,31 @@ public class GameController {
         });
     }
 
-    private void collisionDetection(Fish fish) {
-        if (!fish.isDead()) {
-            if (cat.getX() >= fish.getX() && cat.getX() <= fish.getX() + fish.getWIDTH()
-                    || cat.getX() + cat.getWIDTH() >= fish.getX() && cat.getX() + cat.getWIDTH() <= fish.getX() + fish.getWIDTH()) {
-                if (cat.getY() >= fish.getY() && cat.getY() <= fish.getY() + fish.getHEIGHT()
-                        || cat.getY() + cat.getHEIGHT() >= fish.getY() && cat.getY() + cat.getHEIGHT() <= fish.getY() + fish.getHEIGHT()) {
-                    fish.dead();
-                    scoreLabel.setText("Score: " + ++score);
-                    if (score == 3) {
-                        gameEnd = true;
-                        cat.grow();
-                        labelPopUp(winningLabel);
-                    }
-                }
-            }
+    private int getRandomPos() {
+        int x = random.nextInt(450 ) + random.nextInt(25) + random.nextInt(25);
+        while (pos.contains(x)) {
+            x = random.nextInt(450) + random.nextInt(25) + random.nextInt(25);
         }
+        pos.add(x);
+        return x;
     }
 
-    private void collisionDetection(Dog dog) {
-        if (cat.getX() >= dog.getX() && cat.getX() <= dog.getX() + dog.getWIDTH()
-                || cat.getX() + cat.getWIDTH() >= dog.getX() && cat.getX() + cat.getWIDTH() <= dog.getX() + dog.getWIDTH()) {
-            if (cat.getY() >= dog.getY() && cat.getY() <= dog.getY() + dog.getHEIGHT()
-                    || cat.getY() + cat.getHEIGHT() >= dog.getY() && cat.getY() + cat.getHEIGHT() <= dog.getY() + dog.getHEIGHT()) {
-                cat.dead();
-                gameEnd = true;
-                labelPopUp(gameOverLabel);
-            }
+    private boolean onCollisionDetect(DrawingObject object1, OnConllisionListener object2) {
+        if (object1.collisionDetection((DrawingObject) object2)) {
+            object2.onCollisionEnter(object1);
+            return true;
+        }
+        return false;
+    }
+
+    private void checkEndGame() {
+        if (score == 5) {
+            gameEnd = true;
+            cat.grow();
+            labelPopUp(winningLabel);
+        } else if (cat.isDead()) {
+            gameEnd = true;
+            labelPopUp(gameOverLabel);
         }
     }
 
@@ -185,16 +208,15 @@ public class GameController {
         this.cat = cat;
     }
 
+    public void setDifficulty(Difficulty difficulty) { this.difficulty = difficulty; }
+
     @FXML
     private void display() {
         pane.getChildren().clear();
-        cat.draw();
-        fish1.draw();
-        fish2.draw();
-        fish3.draw();
-        dog.draw();
-        bg.draw();
-        pane.getChildren().addAll(bg, fish1, fish2, fish3, dog, cat, scoreLabel);
+        for (DrawingObject object: drawingList) {
+            object.draw();
+        }
+        pane.getChildren().addAll(bg, fish1, fish2, fish3, fish4, fish5, dog, cat, scoreLabel);
     }
 
 }

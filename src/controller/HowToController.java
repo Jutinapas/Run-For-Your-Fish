@@ -1,7 +1,8 @@
 package controller;
 
+import model.Cat;
+import model.CatType;
 import model.KeyAction;
-import model.SmokeyCat;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,13 +35,13 @@ public class HowToController {
     @FXML
     private Label aLabel;
 
-    private SmokeyCat cat;
+    private Cat cat;
 
     private KeyAction keyAction;
     private AnimationTimer timer;
 
     public void initialize() {
-        cat = new SmokeyCat(245, 390);
+        cat = new Cat(CatType.Smokey,245, 390);
         howToLabel.setText("-Use WASD to move\n-Try to collect all fishs\n-And BEWARE OF DOG!!");
         display();
 

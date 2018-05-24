@@ -1,0 +1,46 @@
+.howto-button {
+    -fx-font-family: "roboto";
+    -fx-font-size: 13pt;
+    -fx-background-color: lightyellow;
+
+}
+.howto-button:hover {
+    -fx-font-family: "roboto";
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+    -fx-background-color: orange;
+}
+
+.credit-button {
+    -fx-font-family: "roboto";
+    -fx-font-size: 16pt;
+    -fx-background-color: lightyellow;
+
+}
+.credit-button:hover {
+    -fx-font-family: "roboto";
+    -fx-font-size: 18pt;
+    -fx-text-fill: white;
+    -fx-background-color: orange;
+}
+
+.start-button {
+    -fx-font-family: "roboto";
+    -fx-font-size: 26pt;
+    -fx-background-color: lightyellow;
+
+}
+.start-button:hover {
+    -fx-font-family: "roboto";
+    -fx-font-size: 30pt;
+    -fx-text-fill: white;
+    -fx-background-color: orange;
+}
+
+.label {
+    -fx-font-family: "waan free";
+    -fx-text-fill: black;
+    -fx-background-color: lightyellow;
+    -fx-font-size: 84pt;
+}
+

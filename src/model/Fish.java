@@ -8,12 +8,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.util.Duration;
 
-public class Fish extends DrawingObject {
+public class Fish extends DrawingObject implements OnConllisionListener {
 
     private boolean isDead = false;
 
-    public Fish(double x, double y) {
+    public Fish(double x, double y, boolean isFlip) {
         super(x, y, 50, 35);
+        if (isFlip) {
+            filpCanvas();
+        }
         idleAnimation();
     }
 
@@ -27,11 +30,6 @@ public class Fish extends DrawingObject {
         gc.fillArc(6, 20, 30, 10, 190, 160, ArcType.OPEN);
         gc.setFill(Color.YELLOW);
         gc.fillOval(10, 10, 5, 5);
-    }
-
-    public void dead() {
-        isDead = true;
-        deadAnimation();
     }
 
     private void idleAnimation() {
@@ -58,6 +56,14 @@ public class Fish extends DrawingObject {
 
     public boolean isDead() {
         return isDead;
+    }
+
+    @Override
+    public void onCollisionEnter(DrawingObject object) {
+        if (object instanceof Cat && !isDead) {
+            isDead = true;
+            deadAnimation();
+        }
     }
 
 }

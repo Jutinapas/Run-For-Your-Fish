@@ -9,10 +9,17 @@ import javafx.util.Duration;
 public class Dog extends DrawingObject {
 
     private boolean isFlip = false;
-    private final double SPEED = 0.5;
+    private double speed = 0.5;
 
     public Dog(double x, double y) {
         super(x, y, 120, 80);
+        filpCanvas();
+        idleAnimation();
+    }
+
+    public Dog(double speed, double x, double y) {
+        super(x, y, 120, 80);
+        this.speed = speed;
         filpCanvas();
         idleAnimation();
     }
@@ -67,17 +74,17 @@ public class Dog extends DrawingObject {
                 filpCanvas();
                 isFlip = false;
             }
-            setTranslateX(getTranslateX() + SPEED);
+            setTranslateX(getTranslateX() + speed);
         } if (x < getTranslateX()) {
             if (!isFlip) {
                 filpCanvas();
                 isFlip = true;
             }
-            setTranslateX(getTranslateX() - SPEED);
+            setTranslateX(getTranslateX() - speed);
         } if (y > getTranslateY()) {
-            setTranslateY(getTranslateY() + SPEED);
+            setTranslateY(getTranslateY() + speed);
         } if (y < getTranslateY()) {
-            setTranslateY(getTranslateY() - SPEED);
+            setTranslateY(getTranslateY() - speed);
         }
     }
 

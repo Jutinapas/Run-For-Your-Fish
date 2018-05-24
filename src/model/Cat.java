@@ -8,19 +8,64 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.util.Duration;
 
-public abstract class Cat extends DrawingObject {
+public class Cat extends DrawingObject implements OnConllisionListener {
 
+    private CatType type;
     private final double SPEED = 2;
     private boolean isFlip = false;
+    private boolean isDead = false;
 
-    public Cat(double x, double y) {
+    public Cat(CatType type, double x, double y) {
         super(x, y, 100, 80);
+        this.type = type;
         idleAnimation();
     }
 
-    public abstract void draw();
+    public void draw() {
+        if (type == CatType.Ginger) {
+            drawGingerCat();
+        } else if (type == CatType.Sunny) {
+            drawSunnyCat();
+        } else if (type == CatType.Smokey) {
+            drawSmokeyCat();
+        }
+    }
 
-    protected void drawTail(Color c1) {
+    private void drawGingerCat() {
+        drawTail(Color.WHITE);
+        drawBody(Color.SANDYBROWN);
+        drawHead(Color.WHITE, Color.WHITE, Color.SANDYBROWN);
+        drawFace(Color.BLACK);
+        gc.setFill(Color.WHITE);
+        gc.fillOval(20.5, 30, 24,12);
+        gc.strokeArc(25,30,7,7, 170, 180, ArcType.OPEN);
+        gc.strokeArc(32,30,7,7, 180, 190, ArcType.OPEN);
+        drawLegs(Color.WHITE);
+    }
+
+    private void drawSunnyCat() {
+        drawTail(Color.WHITE);
+        drawBody(Color.WHITE);
+        gc.setFill(Color.GOLD);
+        gc.fillOval(40,20, 40, 20);
+        gc.setFill(Color.GRAY);
+        gc.fillOval(65, 32.5, 25, 20);
+        drawHead(Color.GRAY, Color.GOLD, Color.WHITE);
+        gc.setFill(Color.GOLD);
+        gc.fillOval(35,10, 20, 25);
+        drawFace(Color.BLACK);
+        drawLegs(Color.WHITE);
+    }
+
+    private void drawSmokeyCat() {
+        drawTail(Color.GRAY);
+        drawBody(Color.GRAY);
+        drawHead(Color.GRAY, Color.GRAY, Color.GRAY);
+        drawFace(Color.YELLOW);
+        drawLegs(Color.GRAY);
+    }
+
+    private void drawTail(Color c1) {
         gc.setFill(c1);
         gc.rotate(15);
         gc.strokeArc(85, -20, 10, 40, -150, -270, ArcType.OPEN);
@@ -28,13 +73,13 @@ public abstract class Cat extends DrawingObject {
         gc.rotate(-15);
     }
 
-    protected void drawBody(Color c1) {
+    private void drawBody(Color c1) {
         gc.setFill(c1);
         gc.strokeOval(20, 20, 70, 45);
         gc.fillOval(20, 20, 70 ,45);
     }
 
-    protected void drawHead(Color c1, Color c2, Color c3) {
+    private void drawHead(Color c1, Color c2, Color c3) {
         gc.rotate(-15);
         gc.setFill(c1);
         gc.strokePolygon(new double[]{10,15,20}, new double[]{20,5,20}, 3);
@@ -49,7 +94,7 @@ public abstract class Cat extends DrawingObject {
         gc.fillOval(10,10, 50, 40);
     }
 
-    protected void drawFace(Color c1) {
+    private void drawFace(Color c1) {
         gc.setFill(c1);
         gc.fillOval(20, 20, 7, 7);
         gc.fillOval(40, 20, 7, 7);
@@ -58,26 +103,20 @@ public abstract class Cat extends DrawingObject {
         gc.strokeArc(32,30,7,7, 180, 190, ArcType.OPEN);
     }
 
-    protected void drawLegs(Color c1) {
+    private void drawLegs(Color c1) {
         gc.setFill(c1);
-        //foreleg
         gc.strokeArc(23, 35, 12, 40, 170, 180, ArcType.OPEN);
         gc.fillArc(23, 35, 12, 40, 170, 180, ArcType.OPEN);
         gc.rotate(15);
         gc.strokeArc(55, 23, 12, 40, 190, 180, ArcType.OPEN);
         gc.fillArc(55, 23, 12, 40, 190, 180, ArcType.OPEN);
         gc.rotate(-15);
-        //hindleg
         gc.strokeArc(65, 55, 12, 17, 170, 230, ArcType.CHORD);
         gc.fillArc(65, 55, 12, 17, 170, 230, ArcType.CHORD);
         gc.rotate(15);
         gc.strokeArc(85, 13, 12, 40, 200, 180, ArcType.OPEN);
         gc.fillArc(85, 13, 12, 40, 200, 180, ArcType.OPEN);
         gc.rotate(-15);
-    }
-
-    public void dead() {
-        deadAnimation();
     }
 
     public void grow() { growAnimation(); }
@@ -149,4 +188,17 @@ public abstract class Cat extends DrawingObject {
     public double getSPEED() {
         return SPEED;
     }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    @Override
+    public void onCollisionEnter(DrawingObject object) {
+        if (object instanceof Dog) {
+            isDead = true;
+            deadAnimation();
+        }
+    }
+
 }

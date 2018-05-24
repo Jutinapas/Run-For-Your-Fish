@@ -1,9 +1,7 @@
 package controller;
 
-import model.Background;
-import model.GingerCat;
-import model.SmokeyCat;
-import model.SunnyCat;
+import javafx.scene.control.ComboBox;
+import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class SelectController {
@@ -21,6 +20,8 @@ public class SelectController {
 
     @FXML
     private Pane pane;
+    @FXML
+    private ComboBox<Difficulty> comboBox;
     @FXML
     private Button gingerButton;
     @FXML
@@ -30,59 +31,52 @@ public class SelectController {
     @FXML
     private Button backButton;
     @FXML
-    private Label label;
+    private Label label1;
+    @FXML
+    private Label label2;
 
-    private GingerCat ginger;
-    private SunnyCat sunny;
-    private SmokeyCat smokey;
+    private Cat ginger, sunny, smokey;
     private Background bg;
+
+    private ArrayList<DrawingObject> drawingList = new ArrayList<>();
 
     @FXML
     public void initialize() {
-        ginger = new GingerCat(70, 300);
-        sunny = new SunnyCat(250, 300);
-        smokey = new SmokeyCat(420, 300);
+        comboBox.setPromptText("Easy");
+        comboBox.getItems().addAll(
+                Difficulty.Easy,
+                Difficulty.Normal,
+                Difficulty.Hard
+        );
+        ginger = new Cat(CatType.Ginger,70, 300);
+        drawingList.add(ginger);
+        sunny = new Cat(CatType.Sunny,250, 300);
+        drawingList.add(sunny);
+        smokey = new Cat(CatType.Smokey,420, 300);
+        drawingList.add(smokey);
         bg = new Background();
+        drawingList.add(bg);
         display();
     }
 
-    public void handleGingerButton(ActionEvent e) {
-        Stage stage = (Stage) pane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/gamePage.fxml"));
-        try {
-            stage.setScene(new Scene(loader.load(), 600, 600));
-            GameController controller = loader.getController();
-            controller.setCat(new GingerCat(500, 500));
-            stage.show();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+    private Difficulty getDifficulty() {
+        if (comboBox.getValue() == null) {
+            return Difficulty.Easy;
+        } else {
+            return comboBox.getValue();
         }
+    }
+
+    public void handleGingerButton(ActionEvent e) {
+        loadGameScene(new Cat(CatType.Ginger,500, 500), getDifficulty());
     }
 
     public void handleSunnyButton(ActionEvent e) {
-        Stage stage = (Stage) pane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/gamePage.fxml"));
-        try {
-            stage.setScene(new Scene(loader.load(), 600, 600));
-            GameController controller = loader.getController();
-            controller.setCat(new SunnyCat(500, 500));
-            stage.show();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+        loadGameScene(new Cat(CatType.Sunny,500, 500), getDifficulty());
     }
 
     public void handleSmokeyButton(ActionEvent e) {
-        Stage stage = (Stage) pane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/gamePage.fxml"));
-        try {
-            stage.setScene(new Scene(loader.load(), 600, 600));
-            GameController controller = loader.getController();
-            controller.setCat(new SmokeyCat(500, 500));
-            stage.show();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+        loadGameScene(new Cat(CatType.Smokey, 500, 500), getDifficulty());
     }
 
     public void handleBackButton() {
@@ -96,14 +90,27 @@ public class SelectController {
         }
     }
 
+    private void loadGameScene(Cat cat, Difficulty difficulty) {
+        Stage stage = (Stage) pane.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/gamePage.fxml"));
+        try {
+            stage.setScene(new Scene(loader.load(), 600, 600));
+            GameController controller = loader.getController();
+            controller.setCat(cat);
+            controller.setDifficulty(difficulty);
+            stage.show();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
     @FXML
     private void display() {
         pane.getChildren().clear();
-        ginger.draw();
-        sunny.draw();
-        smokey.draw();
-        bg.draw();
-        pane.getChildren().addAll(bg, ginger, sunny, smokey, label, gingerButton, sunnyButton, smokeyButton, backButton);
+        for (DrawingObject object: drawingList) {
+            object.draw();
+        }
+        pane.getChildren().addAll(bg, ginger, sunny, smokey, label1, label2, gingerButton, sunnyButton, smokeyButton, backButton, comboBox);
     }
 
 }
